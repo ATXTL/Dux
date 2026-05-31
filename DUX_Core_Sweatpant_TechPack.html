@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DUX — Core Sweatpant Tech Pack — DUX-SW-001</title>
+<style>
+  @media print {
+    body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .no-print { display: none; }
+    .page-break { page-break-before: always; }
+    .section { break-inside: avoid; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f4f3f0;
+    color: #1c1917;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: #1c1917;
+    border-radius: 14px;
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .header-left {}
+  .brand-logo {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .brand-tagline {
+    font-size: 11px;
+    color: #888780;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .header-right { text-align: right; }
+  .doc-title { font-size: 18px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+  .doc-meta { display: flex; flex-direction: column; gap: 3px; }
+  .doc-meta span { font-size: 11px; color: #888780; }
+  .doc-meta span strong { color: #c4c2bc; font-weight: 500; }
+  .confidential {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #888780;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+
+  /* ── STYLE DETAILS BAR ── */
+  .style-bar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: #e0dfd8;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .style-item {
+    background: #fff;
+    padding: 12px 14px;
+  }
+  .style-item label {
+    display: block;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888780;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .style-item span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #1c1917;
+  }
+
+  /* ── SECTION HEADINGS ── */
+  .section { margin-bottom: 24px; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .section-head h2 {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #888780;
+    white-space: nowrap;
+  }
+  .section-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e0dfd8;
+  }
+
+  /* ── TWO COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border: 1px solid #e0dfd8;
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .card h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1c1917;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1efe8;
+  }
+
+  /* ── COLOUR SPEC ── */
+  .colour-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border-radius: 10px; overflow: hidden; border: 1px solid #e0dfd8; }
+  .colour-block { padding: 20px; }
+  .colour-swatch-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .colour-circle { width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.08); flex-shrink: 0; }
+  .colour-name { font-size: 14px; font-weight: 600; }
+  .colour-role { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #888780; margin-top: 2px; }
+  .colour-codes { display: flex; flex-direction: column; gap: 5px; }
+  .code-row { display: flex; justify-content: space-between; font-size: 11px; padding: 4px 0; border-bottom: 1px solid #f1efe8; }
+  .code-row:last-child { border: none; }
+  .code-row .k { color: #888780; }
+  .code-row .v { font-weight: 500; font-family: 'Courier New', monospace; }
+  .colour-preview {
+    background: #C4C2BC;
+    border-radius: 10px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 12px;
+  }
+  .preview-item { text-align: center; }
+  .preview-dux-thigh { font-size: 16px; letter-spacing: 5px; font-family: Georgia, serif; color: #1c1917; }
+  .preview-dux-hem { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+  .preview-dux-hem span { font-size: 12px; font-family: Georgia, serif; color: #1c1917; letter-spacing: 2px; }
+  .preview-caption { font-size: 9px; color: #7a7872; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ── FABRIC SPEC ── */
+  .spec-list { display: flex; flex-direction: column; gap: 0; }
+  .spec-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f1efe8; font-size: 12px; }
+  .spec-row:last-child { border: none; }
+  .spec-row .sk { color: #888780; }
+  .spec-row .sv { font-weight: 500; color: #1c1917; text-align: right; }
+  .spec-row .sv.green { color: #0f6e56; }
+
+  /* ── POM TABLE ── */
+  .pom-table-wrap { border-radius: 10px; overflow: hidden; border: 1px solid #e0dfd8; }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #1c1917; }
+  thead th {
+    padding: 10px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #fff;
+    text-align: left;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  thead th.c { text-align: center; }
+  tbody tr { border-bottom: 1px solid #efefed; }
+  tbody tr:nth-child(even) { background: #fafaf9; }
+  tbody tr.highlight { background: #f0faf5; }
+  tbody td { padding: 9px 12px; font-size: 12px; color: #1c1917; }
+  tbody td.c { text-align: center; }
+  tbody td.bold { text-align: center; font-weight: 700; font-size: 13px; }
+  tbody td.green { text-align: center; font-weight: 700; color: #0f6e56; }
+  tbody td.muted { color: #888780; font-size: 11px; text-align: center; }
+  tbody td.num { color: #b4b2a9; font-size: 11px; }
+
+  /* ── CONSTRUCTION NOTES ── */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .note-item {
+    background: #fafaf9;
+    border: 1px solid #e0dfd8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+  }
+  .note-num {
+    width: 22px;
+    height: 22px;
+    background: #1c1917;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .note-text { font-size: 12px; color: #444441; line-height: 1.6; }
+  .note-text strong { color: #1c1917; }
+
+  /* ── COMPETITOR CONTEXT ── */
+  .comp-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .comp-row:last-child { margin-bottom: 0; }
+  .comp-name { font-size: 12px; min-width: 130px; color: #1c1917; }
+  .comp-name.dux { font-weight: 700; color: #0f6e56; }
+  .comp-track { flex: 1; background: #f1efe8; border-radius: 3px; height: 10px; overflow: hidden; }
+  .comp-fill { height: 100%; border-radius: 3px; }
+  .comp-val { font-size: 11px; min-width: 36px; text-align: right; color: #888780; font-weight: 500; }
+  .comp-val.dux { color: #0f6e56; font-weight: 700; }
+
+  /* ── CARE ── */
+  .care-icons { display: flex; gap: 12px; flex-wrap: wrap; }
+  .care-icon { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .care-symbol {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid #1c1917;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1c1917;
+  }
+  .care-symbol.circle { border-radius: 50%; }
+  .care-symbol.triangle { border: none; width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent; border-bottom: 32px solid #e24b4a; position: relative; }
+  .care-label { font-size: 9px; color: #888780; text-align: center; max-width: 52px; line-height: 1.3; }
+
+  /* ── APPROVAL BOX ── */
+  .approval-table { width: 100%; border-collapse: collapse; }
+  .approval-table td {
+    border: 1px solid #e0dfd8;
+    padding: 14px 16px;
+    font-size: 12px;
+    vertical-align: top;
+    width: 33.33%;
+  }
+  .approval-table .al { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #888780; font-weight: 600; margin-bottom: 24px; }
+  .approval-table .sign-line { border-bottom: 1px solid #1c1917; margin-top: 20px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #e0dfd8;
+    margin-top: 32px;
+  }
+  .footer p { font-size: 10px; color: #b4b2a9; }
+
+  /* ── ALERT BANNER ── */
+  .alert {
+    background: #f0faf5;
+    border: 1px solid #1d9e75;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #0f6e56;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="brand-logo">DUX</div>
+      <div class="brand-tagline">Lifestyle Fitness Apparel</div>
+    </div>
+    <div class="header-right">
+      <div class="doc-title">Technical Specification Pack</div>
+      <div class="doc-meta">
+        <span><strong>Style No.</strong> DUX-SW-001</span>
+        <span><strong>Description</strong> Core Sweatpant</span>
+        <span><strong>Season</strong> SS26</span>
+        <span><strong>Issued</strong> May 2026</span>
+        <span><strong>Version</strong> 1.0 — Final</span>
+      </div>
+      <div class="confidential">Confidential — Manufacturer Use Only</div>
+    </div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert">
+    &#9654; &nbsp; <strong>Action required:</strong> Produce and submit fit sample in Medium (M) for approval before proceeding to bulk cut. Do not grade to S/L until M sample is approved.
+  </div>
+
+  <!-- STYLE DETAILS BAR -->
+  <div class="style-bar">
+    <div class="style-item"><label>Style name</label><span>Core Sweatpant</span></div>
+    <div class="style-item"><label>Style number</label><span>DUX-SW-001</span></div>
+    <div class="style-item"><label>Fit type</label><span>Wide-leg straight</span></div>
+    <div class="style-item"><label>Size range</label><span>S / M / L</span></div>
+    <div class="style-item"><label>Sample size</label><span>Medium (M)</span></div>
+    <div class="style-item"><label>Measurements</label><span>Inches (″)</span></div>
+  </div>
+
+  <!-- COLOUR SPECIFICATION -->
+  <div class="section">
+    <div class="section-head"><h2>Colour specification</h2></div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Fabric colour — Warm Slate Grey</h3>
+        <div class="colour-swatch-row">
+          <div class="colour-circle" style="background:#C4C2BC;"></div>
+          <div>
+            <div class="colour-name" style="color:#1c1917;">Warm Slate Grey</div>
+            <div class="colour-role">Garment body fabric colour</div>
+          </div>
+        </div>
+        <div class="colour-codes">
+          <div class="code-row"><span class="k">Hex</span><span class="v">#C4C2BC</span></div>
+          <div class="code-row"><span class="k">RGB</span><span class="v">196, 194, 188</span></div>
+          <div class="code-row"><span class="k">Pantone</span><span class="v">Warm Gray 4 C</span></div>
+          <div class="code-row"><span class="k">CMYK</span><span class="v">0 / 1 / 4 / 23</span></div>
+          <div class="code-row"><span class="k">Fabric type</span><span class="v">French Terry, garment dyed</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Embroidery thread — Warm Soft Black</h3>
+        <div class="colour-swatch-row">
+          <div class="colour-circle" style="background:#1c1917; border-color:#444;"></div>
+          <div>
+            <div class="colour-name" style="color:#1c1917;">Warm Soft Black</div>
+            <div class="colour-role">Embroidery thread — all placements</div>
+          </div>
+        </div>
+        <div class="colour-codes">
+          <div class="code-row"><span class="k">Hex</span><span class="v">#1C1917</span></div>
+          <div class="code-row"><span class="k">RGB</span><span class="v">28, 25, 23</span></div>
+          <div class="code-row"><span class="k">Pantone</span><span class="v">Black 6 C</span></div>
+          <div class="code-row"><span class="k">CMYK</span><span class="v">0 / 11 / 18 / 89</span></div>
+          <div class="code-row"><span class="k">Thread ref</span><span class="v">Madeira Classic 40 — 1800</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="colour-preview" style="margin-top:12px;">
+      <div class="preview-item">
+        <div class="preview-dux-thigh">DUX</div>
+        <div class="preview-caption">Thigh placement</div>
+      </div>
+      <div style="width:1px; height:40px; background:rgba(28,25,23,0.15);"></div>
+      <div class="preview-item">
+        <div class="preview-dux-hem">
+          <span>D</span><span>U</span><span>X</span>
+        </div>
+        <div class="preview-caption">Hem placement</div>
+      </div>
+      <div style="width:1px; height:40px; background:rgba(28,25,23,0.15);"></div>
+      <div class="preview-item" style="font-size:12px; color:#7a7872; max-width:200px; line-height:1.6;">
+        Warm soft black on warm slate grey — avoid pure #000000 which reads harsh against this fabric tone.
+      </div>
+    </div>
+  </div>
+
+  <!-- FABRIC SPECIFICATION -->
+  <div class="section">
+    <div class="section-head"><h2>Fabric specification</h2></div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Material</h3>
+        <div class="spec-list">
+          <div class="spec-row"><span class="sk">Fabric construction</span><span class="sv">French Terry</span></div>
+          <div class="spec-row"><span class="sk">Weight (GSM)</span><span class="sv green">340 GSM &nbsp;±10 GSM tolerance</span></div>
+          <div class="spec-row"><span class="sk">Composition</span><span class="sv">65% Cotton / 35% Polyester</span></div>
+          <div class="spec-row"><span class="sk">Face</span><span class="sv">Smooth, flat surface</span></div>
+          <div class="spec-row"><span class="sk">Reverse</span><span class="sv">Brushed loop — must be specified</span></div>
+          <div class="spec-row"><span class="sk">Pre-shrunk</span><span class="sv green">Yes — mandatory</span></div>
+          <div class="spec-row"><span class="sk">Stretch</span><span class="sv">Minimal (non-stretch construction)</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Trims & hardware</h3>
+        <div class="spec-list">
+          <div class="spec-row"><span class="sk">Waistband type</span><span class="sv">Ribbed elastic, 3″ height</span></div>
+          <div class="spec-row"><span class="sk">Drawcord</span><span class="sv">Internal, exits front centre</span></div>
+          <div class="spec-row"><span class="sk">Eyelets</span><span class="sv">2× metal, antique brass or gunmetal</span></div>
+          <div class="spec-row"><span class="sk">Drawcord ends</span><span class="sv">Metal aglets — match eyelet finish</span></div>
+          <div class="spec-row"><span class="sk">Label</span><span class="sv">Printed (no woven tag) — inside waistband</span></div>
+          <div class="spec-row"><span class="sk">Pocket bags</span><span class="sv">Self-fabric or tonal lining</span></div>
+          <div class="spec-row"><span class="sk">Stitching</span><span class="sv">Tonal — match Warm Slate Grey</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POM TABLE -->
+  <div class="section">
+    <div class="section-head"><h2>Point of measure (POM) — all measurements in inches</h2></div>
+    <div class="pom-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px;">#</th>
+            <th>Point of measure</th>
+            <th class="c" style="width:80px;">How measured</th>
+            <th class="c" style="width:70px;">Tolerance</th>
+            <th class="c" style="width:64px;">S</th>
+            <th class="c" style="width:64px;">M</th>
+            <th class="c" style="width:64px;">L</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">01</td><td>Waist, relaxed</td><td class="muted">½ meas.</td><td class="muted">± ½″</td>
+            <td class="c">13″</td><td class="bold">14″</td><td class="c">15″</td>
+          </tr>
+          <tr>
+            <td class="num">02</td><td>Waist, extended (max stretch)</td><td class="muted">½ meas.</td><td class="muted">± ½″</td>
+            <td class="c">17″</td><td class="bold">18″</td><td class="c">19″</td>
+          </tr>
+          <tr>
+            <td class="num">03</td><td>Front rise, incl. waistband</td><td class="muted">full</td><td class="muted">± ¼″</td>
+            <td class="c">12½″</td><td class="bold">13″</td><td class="c">13½″</td>
+          </tr>
+          <tr>
+            <td class="num">04</td><td>Back rise, incl. waistband</td><td class="muted">full</td><td class="muted">± ¼″</td>
+            <td class="c">16½″</td><td class="bold">17″</td><td class="c">17½″</td>
+          </tr>
+          <tr>
+            <td class="num">05</td><td>Hip, 3″ below waistband</td><td class="muted">½ meas.</td><td class="muted">± ½″</td>
+            <td class="c">22½″</td><td class="bold">23″</td><td class="c">23½″</td>
+          </tr>
+          <tr>
+            <td class="num">06</td><td>Thigh, 1″ below crotch seam</td><td class="muted">½ meas.</td><td class="muted">± ½″</td>
+            <td class="c">13″</td><td class="bold">13½″</td><td class="c">14″</td>
+          </tr>
+          <tr>
+            <td class="num">07</td><td>Knee, 14″ from crotch seam</td><td class="muted">½ meas.</td><td class="muted">± ½″</td>
+            <td class="c">12½″</td><td class="bold">13″</td><td class="c">13½″</td>
+          </tr>
+          <tr class="highlight">
+            <td class="num">08</td><td><strong>Leg opening</strong> &nbsp;<span style="font-size:10px;color:#0f6e56;">★ must match knee — zero taper</span></td><td class="muted">½ meas.</td><td class="muted">± ¼″</td>
+            <td class="green">12½″</td><td class="green" style="font-size:14px;">13″</td><td class="green">13½″</td>
+          </tr>
+          <tr>
+            <td class="num">09</td><td>Inseam</td><td class="muted">full</td><td class="muted">± ½″</td>
+            <td class="c">30½″</td><td class="bold">31″</td><td class="c">31½″</td>
+          </tr>
+          <tr>
+            <td class="num">10</td><td>Outseam</td><td class="muted">full</td><td class="muted">± ½″</td>
+            <td class="c">43″</td><td class="bold">43½″</td><td class="c">44″</td>
+          </tr>
+          <tr>
+            <td class="num">11</td><td>Hem allowance</td><td class="muted">full</td><td class="muted">± ⅛″</td>
+            <td class="c">1¼″</td><td class="bold">1¼″</td><td class="c">1¼″</td>
+          </tr>
+          <tr>
+            <td class="num">12</td><td>Waistband height</td><td class="muted">full</td><td class="muted">± ⅛″</td>
+            <td class="c">3″</td><td class="bold">3″</td><td class="c">3″</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px; color:#888780; margin-top:8px; padding-left:4px;">
+      ½ measurements taken flat, garment laid on table. M column is sample/grading base. All measurements in inches.
+    </p>
+  </div>
+
+  <!-- FULL CIRCUMFERENCE REFERENCE -->
+  <div class="section">
+    <div class="section-head"><h2>Full circumference reference (½ measurements × 2)</h2></div>
+    <div class="pom-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Measurement</th>
+            <th class="c">S — full circ.</th>
+            <th class="c">M — full circ.</th>
+            <th class="c">L — full circ.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Waist, relaxed</td><td class="c">26″</td><td class="bold">28″</td><td class="c">30″</td></tr>
+          <tr><td>Waist, extended</td><td class="c">34″</td><td class="bold">36″</td><td class="c">38″</td></tr>
+          <tr><td>Hip</td><td class="c">45″</td><td class="bold">46″</td><td class="c">47″</td></tr>
+          <tr><td>Thigh</td><td class="c">26″</td><td class="bold">27″</td><td class="c">28″</td></tr>
+          <tr><td>Knee</td><td class="c">25″</td><td class="bold">26″</td><td class="c">27″</td></tr>
+          <tr class="highlight"><td><strong>Leg opening</strong></td><td class="green">25″</td><td class="green" style="font-size:14px;">26″</td><td class="green">27″</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- EMBROIDERY SPEC -->
+  <div class="section">
+    <div class="section-head"><h2>Embroidery specification</h2></div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Placement 1 — Thigh logo</h3>
+        <div class="spec-list">
+          <div class="spec-row"><span class="sk">Location</span><span class="sv">Right leg front, outer thigh</span></div>
+          <div class="spec-row"><span class="sk">Position from waistband</span><span class="sv">Approx. 4″ below waistband seam</span></div>
+          <div class="spec-row"><span class="sk">Text</span><span class="sv">DUX</span></div>
+          <div class="spec-row"><span class="sk">Font style</span><span class="sv">Serif — small caps</span></div>
+          <div class="spec-row"><span class="sk">Letter spacing</span><span class="sv">Wide — approx. 4–5mm between letters</span></div>
+          <div class="spec-row"><span class="sk">Embroidery height</span><span class="sv">10–12mm cap height</span></div>
+          <div class="spec-row"><span class="sk">Thread</span><span class="sv">Madeira Classic 40 — 1800 (#1C1917)</span></div>
+          <div class="spec-row"><span class="sk">Stitch type</span><span class="sv">Satin stitch</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Placement 2 — Hem logo</h3>
+        <div class="spec-list">
+          <div class="spec-row"><span class="sk">Location</span><span class="sv">Left leg, inner hem — vertical stack</span></div>
+          <div class="spec-row"><span class="sk">Position from hem</span><span class="sv">Approx. 1″ above finished hem</span></div>
+          <div class="spec-row"><span class="sk">Text</span><span class="sv">D · U · X (stacked vertically)</span></div>
+          <div class="spec-row"><span class="sk">Font style</span><span class="sv">Serif — matching thigh placement</span></div>
+          <div class="spec-row"><span class="sk">Letter height</span><span class="sv">12–14mm per letter</span></div>
+          <div class="spec-row"><span class="sk">Letter spacing</span><span class="sv">3–4mm between stacked letters</span></div>
+          <div class="spec-row"><span class="sk">Thread</span><span class="sv">Madeira Classic 40 — 1800 (#1C1917)</span></div>
+          <div class="spec-row"><span class="sk">Stitch type</span><span class="sv">Satin stitch</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POCKET SPEC -->
+  <div class="section">
+    <div class="section-head"><h2>Pocket specification</h2></div>
+    <div class="card">
+      <div class="three-col" style="gap:0;">
+        <div style="padding-right:20px; border-right:1px solid #f1efe8;">
+          <div style="font-size:11px; font-weight:600; color:#888780; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">Front pockets</div>
+          <div class="spec-list">
+            <div class="spec-row"><span class="sk">Quantity</span><span class="sv">2× (left and right)</span></div>
+            <div class="spec-row"><span class="sk">Type</span><span class="sv">Vertical welt / slit pocket</span></div>
+            <div class="spec-row"><span class="sk">Entry angle</span><span class="sv">Slight inward angle</span></div>
+            <div class="spec-row"><span class="sk">Opening width</span><span class="sv">Approx. 5–5.5″</span></div>
+            <div class="spec-row"><span class="sk">Bag depth</span><span class="sv">Approx. 7–8″</span></div>
+          </div>
+        </div>
+        <div style="padding:0 20px; border-right:1px solid #f1efe8;">
+          <div style="font-size:11px; font-weight:600; color:#888780; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">Rear pockets</div>
+          <div class="spec-list">
+            <div class="spec-row"><span class="sk">Quantity</span><span class="sv" style="color:#888780;">None</span></div>
+            <div class="spec-row"><span class="sk">Clean back</span><span class="sv green">Yes — no rear pocket</span></div>
+          </div>
+        </div>
+        <div style="padding-left:20px;">
+          <div style="font-size:11px; font-weight:600; color:#888780; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">Pocket finish</div>
+          <div class="spec-list">
+            <div class="spec-row"><span class="sk">Welt fabric</span><span class="sv">Self-fabric</span></div>
+            <div class="spec-row"><span class="sk">Welt height</span><span class="sv">Approx. 1.5–2cm</span></div>
+            <div class="spec-row"><span class="sk">Bag lining</span><span class="sv">Tonal cotton lining</span></div>
+            <div class="spec-row"><span class="sk">Bar tack</span><span class="sv">Yes — at each end</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSTRUCTION NOTES -->
+  <div class="section">
+    <div class="section-head"><h2>Construction & fit notes</h2></div>
+    <div class="notes-grid">
+      <div class="note-item">
+        <div class="note-num">1</div>
+        <div class="note-text"><strong>Fit: wide-leg straight.</strong> Leg opening must equal knee measurement across all sizes. Zero taper from knee to hem — any visible narrowing at the ankle will be rejected.</div>
+      </div>
+      <div class="note-item">
+        <div class="note-num">2</div>
+        <div class="note-text"><strong>Mid-rise positioning.</strong> Front rise 13″ (M). This is a deliberate mid-rise — do not lower the rise without written approval.</div>
+      </div>
+      <div class="note-item">
+        <div class="note-num">3</div>
+        <div class="note-text"><strong>Inseam length 31″ (M).</strong> Intentionally long to produce a slight ankle stack. Do not shorten inseam without approval.</div>
+      </div>
+      <div class="note-item">
+        <div class="note-num">4</div>
+        <div class="note-text"><strong>Brushed loop reverse.</strong> The inner face of the French Terry must be fully brushed. Unbrushed internal fabric will be rejected at inspection.</div>
+      </div>
+      <div class="note-item">
+        <div class="note-num">5</div>
+        <div class="note-text"><strong>Pre-shrunk fabric.</strong> All fabric must be pre-shrunk before cutting. Include shrinkage test results with fit sample submission.</div>
+      </div>
+      <div class="note-item">
+        <div class="note-num">6</div>
+        <div class="note-text"><strong>Waistband.</strong> 3″ ribbed waistband, internal drawcord, 2× metal eyelets at front centre. Confirm eyelet finish (antique brass or gunmetal) with DUX before bulk.</div>
+      </div>
+      <div class="note-item">
+        <div class="note-num">7</div>
+        <div class="note-text"><strong>Label.</strong> No woven label. Printed care/size label inside waistband seam. Label artwork to be supplied by DUX separately.</div>
+      </div>
+      <div class="note-item">
+        <div class="note-num">8</div>
+        <div class="note-text"><strong>Tonal stitching throughout.</strong> All visible stitching must be colour-matched to the Warm Slate Grey fabric. No contrasting thread visible on exterior seams.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARE INSTRUCTIONS -->
+  <div class="section">
+    <div class="section-head"><h2>Recommended care instructions</h2></div>
+    <div class="card">
+      <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start;">
+        <div class="care-icon">
+          <div class="care-symbol">30°</div>
+          <div class="care-label">Machine wash 30°C gentle</div>
+        </div>
+        <div class="care-icon">
+          <div class="care-symbol" style="border-radius:50%;">&#8856;</div>
+          <div class="care-label">Do not bleach</div>
+        </div>
+        <div class="care-icon">
+          <div class="care-symbol">&#9723;</div>
+          <div class="care-label">Tumble dry low</div>
+        </div>
+        <div class="care-icon">
+          <div class="care-symbol" style="font-size:18px;">&#9651;</div>
+          <div class="care-label">Do not iron embroidery</div>
+        </div>
+        <div class="care-icon">
+          <div class="care-symbol" style="font-size:18px;">&#9711;</div>
+          <div class="care-label">Do not dry clean</div>
+        </div>
+        <div style="flex:1; font-size:12px; color:#888780; line-height:1.7; min-width:200px; padding-left:8px;">
+          Wash inside out to protect embroidery. Avoid tumble drying on high heat — can affect French Terry loop structure and cause shrinkage beyond tolerance. Do not iron directly on embroidery placements.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPETITOR CONTEXT -->
+  <div class="section">
+    <div class="section-head"><h2>Fit positioning context</h2></div>
+    <div class="card">
+      <p style="font-size:12px; color:#888780; margin-bottom:16px;">Leg opening (full circumference) — for manufacturer reference only</p>
+      <div class="comp-row">
+        <span class="comp-name dux">DUX Core Sweatpant</span>
+        <div class="comp-track"><div class="comp-fill" style="width:65%; background:#1c1917;"></div></div>
+        <span class="comp-val dux">26″ full</span>
+      </div>
+      <div class="comp-row">
+        <span class="comp-name">Alo Accolade</span>
+        <div class="comp-track"><div class="comp-fill" style="width:72%; background:#c4c2bc;"></div></div>
+        <span class="comp-val">28″+ full</span>
+      </div>
+      <div class="comp-row">
+        <span class="comp-name">Represent Sweats</span>
+        <div class="comp-track"><div class="comp-fill" style="width:55%; background:#c4c2bc;"></div></div>
+        <span class="comp-val">22″ full</span>
+      </div>
+      <div class="comp-row">
+        <span class="comp-name">Vuori Ponto Jogger</span>
+        <div class="comp-track"><div class="comp-fill" style="width:35%; background:#e0dfd8;"></div></div>
+        <span class="comp-val">14″ full</span>
+      </div>
+      <div class="comp-row" style="margin-bottom:0;">
+        <span class="comp-name">Gymshark Jogger</span>
+        <div class="comp-track"><div class="comp-fill" style="width:37%; background:#e0dfd8;"></div></div>
+        <span class="comp-val">15″ full</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPROVAL SECTION -->
+  <div class="section">
+    <div class="section-head"><h2>Approval & sign-off</h2></div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="approval-table">
+        <tr>
+          <td>
+            <div class="al">Prepared by — DUX</div>
+            <div class="sign-line"></div>
+            <div style="font-size:11px; color:#888780; margin-top:6px;">Name / Date</div>
+          </td>
+          <td>
+            <div class="al">Fit sample approved — DUX</div>
+            <div class="sign-line"></div>
+            <div style="font-size:11px; color:#888780; margin-top:6px;">Name / Date</div>
+          </td>
+          <td>
+            <div class="al">Bulk approved — DUX</div>
+            <div class="sign-line"></div>
+            <div style="font-size:11px; color:#888780; margin-top:6px;">Name / Date</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>DUX Lifestyle Fitness Apparel &nbsp;·&nbsp; Confidential — For Manufacturer Use Only</p>
+    <p>DUX-SW-001 &nbsp;·&nbsp; Core Sweatpant &nbsp;·&nbsp; SS26 &nbsp;·&nbsp; v1.0 &nbsp;·&nbsp; Issued May 2026</p>
+    <p>Page 1 of 1</p>
+  </div>
+
+</div>
+</body>
+</html>
